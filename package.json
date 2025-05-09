@@ -2,7 +2,7 @@
   "name": "student-dashboard",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://your-username.github.io/repo-name",
+  "homepage": "https://student-dashboard-orcin-xi.vercel.app",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
