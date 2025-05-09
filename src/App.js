@@ -1,5 +1,7 @@
+// src/App.js
 import React, { useEffect, useState } from "react";
 import {
+  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -70,15 +72,17 @@ const App = () => {
 
   return (
     <div className={theme === "dark" ? "dark-theme" : ""}>
-      <div className="container">
-        <Navbar user={user} toggleTheme={toggleTheme} theme={theme} />
-        <Routes>
-          <Route path="/" element={<Home students={filteredStudents} setFilter={setFilter} user={user} />} />
-          <Route path="/add" element={<ProtectedRoute user={user}><AddStudent /></ProtectedRoute>} />
-          <Route path="/student/:id" element={<ProtectedRoute user={user}><StudentDetail students={students} /></ProtectedRoute>} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </div>
+      <Router>
+        <div className="container">
+          <Navbar user={user} toggleTheme={toggleTheme} theme={theme} />
+          <Routes>
+            <Route path="/" element={<Home students={filteredStudents} setFilter={setFilter} user={user} />} />
+            <Route path="/add" element={<ProtectedRoute user={user}><AddStudent /></ProtectedRoute>} />
+            <Route path="/student/:id" element={<ProtectedRoute user={user}><StudentDetail students={students} /></ProtectedRoute>} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </div>
+      </Router>
     </div>
   );
 };
@@ -204,6 +208,112 @@ const Home = ({ students, setFilter, user }) => {
   );
 };
 
-// AddStudent, Login, StudentDetail, EditStudentModal, ConfirmDeleteModal remain the same.
+const AddStudent = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [course, setCourse] = useState("");
+  const [cgpa, setCgpa] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!name || !email || !course || !cgpa || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert("Please fill all fields correctly.");
+      return;
+    }
+    alert("Student added successfully (mock only).");
+    setName("");
+    setEmail("");
+    setCourse("");
+    setCgpa("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="add-student-form">
+      <h2>Add New Student</h2>
+      <input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+      <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input placeholder="Course" value={course} onChange={(e) => setCourse(e.target.value)} />
+      <input placeholder="CGPA" value={cgpa} onChange={(e) => setCgpa(e.target.value)} />
+      <button type="submit">Add Student</button>
+    </form>
+  );
+};
+
+const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const handleLogin = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      await firebase.auth().signInWithPopup(provider);
+      navigate(from, { replace: true });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  return (
+    <div className="login-container">
+      <p>You must log in to access this feature.</p>
+      <button onClick={handleLogin}>Sign in with Google</button>
+    </div>
+  );
+};
+
+const StudentDetail = ({ students }) => {
+  const { id } = useParams();
+  const student = students.find((s) => s.id === parseInt(id));
+  if (!student) return <p>Student not found.</p>;
+
+  return (
+    <div className="student-detail">
+      <h2>{student.name}</h2>
+      <p><strong>Email:</strong> {student.email}</p>
+      <p><strong>Course:</strong> {student.course}</p>
+      <p><strong>CGPA:</strong> {student.cgpa}</p>
+    </div>
+  );
+};
+
+const EditStudentModal = ({ student, onClose, onSave }) => {
+  const [formData, setFormData] = useState({ ...student });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(formData);
+  };
+
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <h3>Edit Student</h3>
+        <form onSubmit={handleSubmit}>
+          <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" />
+          <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" />
+          <input name="course" value={formData.course} onChange={handleChange} placeholder="Course" />
+          <input name="cgpa" value={formData.cgpa} onChange={handleChange} placeholder="CGPA" />
+          <button type="submit">Save</button>
+          <button type="button" onClick={onClose} style={{ marginLeft: "10px" }}>Cancel</button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+const ConfirmDeleteModal = ({ student, onClose, onDelete }) => (
+  <div className="modal">
+    <div className="modal-content">
+      <p>Are you sure you want to delete <strong>{student.name}</strong>?</p>
+      <button onClick={() => onDelete(student.id)}>Yes, Delete</button>
+      <button onClick={onClose} style={{ marginLeft: "10px" }}>Cancel</button>
+    </div>
+  </div>
+);
 
 export default App;
