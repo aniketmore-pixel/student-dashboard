@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# **🎓 Student Dashboard**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A responsive and feature-rich **React** application for managing student records, with Firebase authentication, protected routes, filtering, searching, and theme toggling. Deployed under `/student-dashboard`.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+* 🔐 **Firebase Authentication** with Google Sign-In
+  
+* 🔒 **Protected Routes** using React Router
+  
+* 🧾 **Student Management**: Add, Edit, Delete, and View details
+  
+* 🔍 **Search & Filter** Students by name and course
+  
+* 🌓 **Light/Dark Theme Toggle** with persistence
+  
+* 📡 **Mock API Integration** using Axios and Axios Mock Adapter
+  
+* 💻 **Responsive Design** for mobile and desktop
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* **Frontend**: React, React Router DOM
+  
+* **Auth**: Firebase Authentication
+  
+* **API**: Axios + Axios Mock Adapter
+* **Styling**: CSS
+  
+* **Routing**: React Router with `basename` support
+  
+* **Hosting**: (Optional) GitHub Pages / Vercel / Firebase Hosting
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🔧 Installation & Setup
 
-### `npm test`
+1. **Clone the repository**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   
+   git clone https://github.com/your-username/student-dashboard.git
+   
+   cd student-dashboard
+   
+   ```
 
-### `npm run build`
+2. **Install dependencies**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   
+   npm install
+   
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Configure Firebase**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   * Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+     
+   * Enable **Google Sign-In** under Authentication
+     
+   * Replace the Firebase config in `firebase.js`:
 
-### `npm run eject`
+     ```js
+     
+     const firebaseConfig = {
+     
+       apiKey: "YOUR_API_KEY",
+     
+       authDomain: "YOUR_AUTH_DOMAIN",
+     
+       projectId: "YOUR_PROJECT_ID",
+     
+       // ...
+     
+     };
+     
+     ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. **Run the app**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   
+   npm start
+   
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+5. Open `http://localhost:3000/`
